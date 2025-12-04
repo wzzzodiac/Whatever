@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>RL Bad Player Checker</title>
+  <title>Are u g4y?</title>
   <style>
     :root {
       --bg: #ffd7e6;         /* rosa pastel cálido */
@@ -132,54 +132,52 @@
   </div>
 
   <script>
-    // Mostrar el mensaje apenas haya 4+ letras
-    const input = document.getElementById('name');
-    const result = document.getElementById('result');
+  const input  = document.getElementById('name');
+  const result = document.getElementById('result');
 
-    function check() {
+  // Mostrar el mensaje SOLO cuando se pulsa Enter
+  input.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault(); // evita que se envíe formulario o haga cosas raras
+
       const val = (input.value || '').trim();
-      if (val.length >= 4) {
+
+      // si quieres mínimo 4 letras, usa: if (val.length >= 4) { ... }
+     if (val.length >= 3) {
         result.style.display = 'block';
       } else {
         result.style.display = 'none';
       }
     }
-    input.addEventListener('input', check);
+  });
 
-    // Generar muchas banderas 🏳️‍🌈 aleatorias como fondo
-    const layer = document.getElementById('emojiLayer');
-    const EMOJI = '🏳️‍🌈';
-    const FLAGS = 120; // cuántas banderas repartimos
+  // ---------------- Fondo de banderas 🏳️‍🌈 ----------------
+  const layer = document.getElementById('emojiLayer');
+  const EMOJI = '🏳️‍🌈';
+  const FLAGS = 120;
 
-    function sprinkleFlags() {
-      const { innerWidth:w, innerHeight:h } = window;
-      layer.innerHTML = ''; // limpia y re-pinta para tamaño actual
-      for (let i = 0; i < FLAGS; i++) {
-        const span = document.createElement('span');
-        span.className = 'emoji';
-        span.textContent = EMOJI;
+  function sprinkleFlags() {
+    const { innerWidth: w, innerHeight: h } = window;
+    layer.innerHTML = '';
+    for (let i = 0; i < FLAGS; i++) {
+      const span = document.createElement('span');
+      span.className = 'emoji';
+      span.textContent = EMOJI;
 
-        // posición aleatoria
-        const x = Math.random() * w;
-        const y = Math.random() * h;
+      const x = Math.random() * w;
+      const y = Math.random() * h;
+      const r = (Math.random() * 30) - 15;
+      const size = 22 + Math.random() * 14;
 
-        // ligera rotación aleatoria
-        const r = (Math.random() * 30) - 15; // -15° a 15°
-
-        // pequeñas variaciones de tamaño
-        const size = 22 + Math.random() * 14;
-        span.style.fontSize = size + 'px';
-
-        span.style.transform = `translate(${x}px, ${y}px) rotate(${r}deg)`;
-        layer.appendChild(span);
-      }
+      span.style.fontSize = size + 'px';
+      span.style.transform = `translate(${x}px, ${y}px) rotate(${r}deg)`;
+      layer.appendChild(span);
     }
+  }
 
-    sprinkleFlags();
-    window.addEventListener('resize', () => {
-      // volver a pintar al cambiar orientación/tamaño
-      sprinkleFlags();
-    });
-  </script>
+  sprinkleFlags();
+  window.addEventListener('resize', sprinkleFlags);
+</script>
+
 </body>
 </html>
